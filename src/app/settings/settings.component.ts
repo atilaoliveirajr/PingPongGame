@@ -1,30 +1,25 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
   @Output()
   public setMultiplayer = new EventEmitter<FormGroup>();
   
-  public settingsFormGroup: FormGroup;
+  public settingsFormGroup: FormGroup = new FormGroup({
+	isMultiplayer: new FormControl(false),
+	isLeftPlayerUsingMouse: new FormControl(true)
+  });
   public isSetting: boolean = true;
 
   constructor(
-	private readonly _formBuilder: UntypedFormBuilder
-  ) {    }
-
-  ngOnInit(): void {
-    this.declareFormGroup();
-  }
-
-  public declareFormGroup(): void {
-	this.settingsFormGroup = this._formBuilder.group({
-		isMultiplayer: [false],
-		isLeftPlayerUsingMouse: [false]
+  ) {
+	this.settingsFormGroup.valueChanges.subscribe(res => {
+		this.setMultiplayer.next(this.settingsFormGroup);
 	})
   }
 

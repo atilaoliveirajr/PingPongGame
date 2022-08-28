@@ -34,7 +34,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   public isKeyUpPressed: boolean = false;
   public isKeyDownPressed: boolean = false;
   public isMultiplayer: boolean = false;
-  public isLeftPlayerUsingMouse: boolean = false;
+  public isLeftPlayerUsingMouse: boolean = true;
 
   constructor() {
     this.lastTime = 0;
@@ -44,6 +44,8 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.ball = new BallComponent(this.ballRef.nativeElement as HTMLElement);
     this.leftPlayer = new PaddleComponent(this.leftPlayerRef.nativeElement as HTMLElement);
     this.rightPlayer = new PaddleComponent(this.rightPlayerRef.nativeElement as HTMLElement);
+
+	this.update(0);
   }
 
   @HostListener('document:mousemove', ['$event'])
@@ -120,6 +122,5 @@ export class TableComponent implements OnInit, AfterViewInit {
   public onSetMultiplayer(formGroup: FormGroup): void {
 	this.isMultiplayer = formGroup.controls['isMultiplayer'].value;
 	this.isLeftPlayerUsingMouse = formGroup.controls['isLeftPlayerUsingMouse'].value;
-	this.update(0);	
   }
 }
