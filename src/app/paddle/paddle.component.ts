@@ -1,12 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 @Component({
-  selector: 'app-paddle-player1',
-  templateUrl: './paddle-player1.component.html',
-  styleUrls: ['./paddle-player1.component.scss'],
+  selector: 'app-paddle',
+  templateUrl: './paddle.component.html',
 })
-export class PaddlePlayer1Component {
-	public readonly SPEED: number = 0.02;
+export class PaddleComponent {
+	public readonly SPEED: number = 0.015;
 	public paddleElem: any;
 
 	constructor(@Inject(String) private paddle: HTMLElement) {

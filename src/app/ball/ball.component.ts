@@ -21,7 +21,7 @@ export class BallComponent {
     return parseFloat(getComputedStyle(this.ballElem).getPropertyValue('--x'));
   }
 
-  set x(value) {
+  set x(value: number) {
     this.ballElem?.style.setProperty('--x', value);
   }
 
@@ -29,7 +29,7 @@ export class BallComponent {
     return parseFloat(getComputedStyle(this.ballElem).getPropertyValue('--y'));
   }
 
-  set y(value) {
+  set y(value: number) {
     this.ballElem?.style.setProperty('--y', value);
   }
 
