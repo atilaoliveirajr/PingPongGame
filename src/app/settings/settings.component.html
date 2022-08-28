@@ -1,10 +1,18 @@
 <div class="panel" *ngIf="isSetting">
 	<h2 class="card-title">Settings</h2>
 	<form [formGroup]="settingsFormGroup" (ngSubmit)="confirmSettings()" class="card-form">
-		<div>
-			<input id="isMultiplayer" formControlName="isMultiplayer" type="checkbox" labelPosition="after">
-			<label for="isMultiplayer" >Multiplayer mode?</label>
+		<div class="card-form-fields">
+			<div>
+				<input id="isMultiplayer" formControlName="isMultiplayer" type="checkbox" labelPosition="after">
+				<label for="isMultiplayer" >Multiplayer mode?</label>
+			</div>
+
+			<div>
+				<input id="isLeftPlayerUsingMouse" formControlName="isLeftPlayerUsingMouse" type="checkbox" labelPosition="after">
+				<label for="isLeftPlayerUsingMouse" >Does left player want to use the mouse?</label>
+			</div>
 		</div>
+		<p>If you want to try to beat the AI, use the mouse. It is hard, but it <span class="red">IS</span> possible! Have fun!</p>
 		<button type="submit">Confirm Settings</button>
 	</form>
 </div>

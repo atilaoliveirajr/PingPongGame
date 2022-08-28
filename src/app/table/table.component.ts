@@ -34,6 +34,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   public isKeyUpPressed: boolean = false;
   public isKeyDownPressed: boolean = false;
   public isMultiplayer: boolean = false;
+  public isLeftPlayerUsingMouse: boolean = false;
 
   constructor() {
     this.lastTime = 0;
@@ -45,34 +46,29 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.rightPlayer = new PaddleComponent(this.rightPlayerRef.nativeElement as HTMLElement);
   }
 
-  /* @HostListener('document:mousemove', ['$event'])
+  @HostListener('document:mousemove', ['$event'])
   onMouseMove(e) {
-    this.leftPlayer.position = (e.y / window.innerHeight) * 100;
-  } */
+	if(this.isLeftPlayerUsingMouse) {
+		this.leftPlayer.position = (e.y / window.innerHeight) * 100;
+	}
+  }
 
   @HostListener('document:keydown', ['$event'])
   public keyEvent(e: KeyboardEvent): void {
     /* Player One */
-    if (e.code === 'KeyW' && this.leftPlayer.position > 5) {
+    if (e.code === 'KeyW' && this.leftPlayer.position > 5 && !this.isLeftPlayerUsingMouse) {
       this.leftPlayer.position = this.leftPlayer.position - 5;
     }
-    if (e.code === 'KeyS' && this.leftPlayer.position < 95) {
+    if (e.code === 'KeyS' && this.leftPlayer.position < 95 && !this.isLeftPlayerUsingMouse) {
       this.leftPlayer.position = this.leftPlayer.position + 5;
     }
 
     /* Player Two */
-    if (
-      e.code === 'ArrowUp' &&
-      this.rightPlayer.position > 5 &&
-      this.isMultiplayer
-    ) {
+    if (e.code === 'ArrowUp' && this.rightPlayer.position > 5 && this.isMultiplayer) {
       this.rightPlayer.position = this.rightPlayer.position - 5;
     }
     if (
-      e.code === 'ArrowDown' &&
-      this.rightPlayer.position < 95 &&
-      this.isMultiplayer
-    ) {
+      e.code === 'ArrowDown' && this.rightPlayer.position < 95 && this.isMultiplayer) {
       this.rightPlayer.position = this.rightPlayer.position + 5;
     }
   }
@@ -123,6 +119,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   public onSetMultiplayer(formGroup: FormGroup): void {
 	this.isMultiplayer = formGroup.controls['isMultiplayer'].value;
+	this.isLeftPlayerUsingMouse = formGroup.controls['isLeftPlayerUsingMouse'].value;
 	this.update(0);	
   }
 }

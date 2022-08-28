@@ -5,8 +5,8 @@ import { Component, Inject, inject, OnInit } from '@angular/core';
   templateUrl: './ball.component.html',
 })
 export class BallComponent {
-  public readonly INITIAL_VELOCITY: number = 0.025;
-  public readonly VELOCITY_INCREASE: number = 0.00001;
+  private readonly _INITIAL_VELOCITY: number = 0.025;
+  private readonly _VELOCITY_INCREASE: number = 0.000005;
 
   public ballElem: any;
   public velocity: number = 0;
@@ -48,13 +48,13 @@ export class BallComponent {
       const heading = randomNumberBetween(0, 2 * Math.PI);
       this.direction = { x: Math.cos(heading), y: Math.sin(heading) };
     }
-    this.velocity = this.INITIAL_VELOCITY;
+    this.velocity = this._INITIAL_VELOCITY;
   }
 
   public update(delta: number, paddleRects: Array<number>): void {
     this.x += this.direction.x * this.velocity * delta;
     this.y += this.direction.y * this.velocity * delta;
-    this.velocity += this.VELOCITY_INCREASE * delta;
+    this.velocity += this._VELOCITY_INCREASE * delta;
     const rect = this.rect();
 
     if (rect.bottom >= window.innerHeight || rect.top <= 0) {

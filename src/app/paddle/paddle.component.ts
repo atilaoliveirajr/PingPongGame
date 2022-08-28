@@ -31,6 +31,7 @@ export class PaddleComponent {
     this.position = 50;
   }
 
+  /* Computer, the higher the speed the harder to beat the computer */
   public update(delta: number, ballHeight:number): void {
     this.position += this.SPEED * delta * (ballHeight - this.position);
   }

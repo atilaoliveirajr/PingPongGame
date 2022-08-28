@@ -23,7 +23,8 @@ export class SettingsComponent implements OnInit {
 
   public declareFormGroup(): void {
 	this.settingsFormGroup = this._formBuilder.group({
-		isMultiplayer: [false]
+		isMultiplayer: [false],
+		isLeftPlayerUsingMouse: [false]
 	})
   }
 
