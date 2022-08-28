@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 
-export interface IBallService {
-  update(delta: any, paddleRects: any): void;
-}
-
-export class BallService implements IBallService {
+@Component({
+  selector: 'app-ball',
+  templateUrl: './ball.component.html',
+})
+export class BallComponent {
   public readonly INITIAL_VELOCITY: number = 0.025;
   public readonly VELOCITY_INCREASE: number = 0.00001;
 
@@ -12,14 +12,17 @@ export class BallService implements IBallService {
   public velocity: number = 0;
   public direction: { x: number; y: number } = { x: 0, y: 0 };
 
-  constructor() {}
+  constructor(@Inject(String) private ball: HTMLElement) {
+    this.ballElem = ball;
+    this.reset();
+  }
 
   get x() {
     return parseFloat(getComputedStyle(this.ballElem).getPropertyValue('--x'));
   }
 
   set x(value) {
-    this.ballElem.style.setProperty('--x', value);
+    this.ballElem?.style.setProperty('--x', value);
   }
 
   get y() {
@@ -27,11 +30,11 @@ export class BallService implements IBallService {
   }
 
   set y(value) {
-    this.ballElem.style.setProperty('--y', value);
+    this.ballElem?.style.setProperty('--y', value);
   }
 
   rect() {
-    return this.ballElem.getBoundingClientRect();
+    return this.ballElem?.getBoundingClientRect();
   }
 
   reset() {
