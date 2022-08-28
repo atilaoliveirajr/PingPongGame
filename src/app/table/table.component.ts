@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   ViewChild,
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BallComponent } from '../ball/ball.component';
 import { PaddleComponent } from '../paddle/paddle.component';
 
@@ -42,8 +43,6 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.ball = new BallComponent(this.ballRef.nativeElement as HTMLElement);
     this.leftPlayer = new PaddleComponent(this.leftPlayerRef.nativeElement as HTMLElement);
     this.rightPlayer = new PaddleComponent(this.rightPlayerRef.nativeElement as HTMLElement);
-
-    this.update(0);
   }
 
   /* @HostListener('document:mousemove', ['$event'])
@@ -99,8 +98,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     this.lastTime = time as number;
-    /* Player Btn */
-    //window.requestAnimationFrame(this.update.bind(this));
+    window.requestAnimationFrame(this.update.bind(this));
   }
 
   public isLose(): boolean {
@@ -121,5 +119,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
     this.ball.reset();
     this.rightPlayer.reset();
+  }
+
+  public onSetMultiplayer(formGroup: FormGroup): void {
+	this.isMultiplayer = formGroup.controls['isMultiplayer'].value;
+	this.update(0);	
   }
 }

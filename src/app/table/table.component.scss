@@ -1,7 +1,6 @@
 .table {
   margin: 0;
-  //background-color: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-  background-color: #24243e;
+  background-image: linear-gradient(to right, #0f0c29 , #302b63,  #24243e);
   overflow: hidden;
   height: 100vh;
 }
@@ -30,7 +29,7 @@
   --y: 50;
 
   position: absolute;
-  background-color: white;
+  background: radial-gradient(circle at 0.5vh 1vh, white, rgba(0,0,0, 0.9));
   left: calc(var(--x) * 1vw);
   top: calc(var(--y) * 1vh);
   border-radius: 50%;

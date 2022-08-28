@@ -1,0 +1,11 @@
+<div class="panel" *ngIf="isSetting">
+	<h2 class="card-title">Settings</h2>
+	<form [formGroup]="settingsFormGroup" (ngSubmit)="confirmSettings()" class="card-form">
+		<div>
+			<input id="isMultiplayer" formControlName="isMultiplayer" type="checkbox" labelPosition="after">
+			<label for="isMultiplayer" >Multiplayer mode?</label>
+		</div>
+		<button type="submit">Confirm Settings</button>
+	</form>
+</div>
+
