@@ -38,12 +38,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.lastTime = 0;
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.ball = new BallComponent(this.ballRef.nativeElement as HTMLElement);
-    this.leftPlayer = new PaddleComponent(
-      this.leftPlayerRef.nativeElement as HTMLElement
-    );
-	this.rightPlayer = new PaddleComponent(this.rightPlayerRef.nativeElement as HTMLElement)
+    this.leftPlayer = new PaddleComponent(this.leftPlayerRef.nativeElement as HTMLElement);
+    this.rightPlayer = new PaddleComponent(this.rightPlayerRef.nativeElement as HTMLElement);
 
     this.update(0);
   }
@@ -54,7 +52,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   } */
 
   @HostListener('document:keydown', ['$event'])
-  keyEventUpDown(e: KeyboardEvent) {
+  public keyEvent(e: KeyboardEvent): void {
     /* Player One */
     if (e.code === 'KeyW' && this.leftPlayer.position > 5) {
       this.leftPlayer.position = this.leftPlayer.position - 5;
@@ -85,7 +83,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.rightPlayerScoreElem = document.getElementById('right-player-score');
   }
 
-  public update(time: number) {
+  public update(time: number): void {
     if (this.lastTime !== null) {
       const delta = time - this.lastTime;
       this.ball.update(delta, [
@@ -105,12 +103,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     //window.requestAnimationFrame(this.update.bind(this));
   }
 
-  public isLose() {
+  public isLose(): boolean {
     const rect = this.ball.rect();
     return rect.right >= window.innerWidth || rect.left <= 0;
   }
 
-  public handleLose() {
+  public handleLose(): void {
     const rect = this.ball.rect();
     if (rect.right >= window.innerWidth) {
       this.leftPlayerScoreElem.textContent = (

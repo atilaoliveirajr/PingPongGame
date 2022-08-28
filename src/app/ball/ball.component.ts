@@ -33,11 +33,11 @@ export class BallComponent {
     this.ballElem?.style.setProperty('--y', value);
   }
 
-  rect() {
+  public rect() {
     return this.ballElem?.getBoundingClientRect();
   }
 
-  reset() {
+  public reset(): void {
     this.x = 50;
     this.y = 50;
     this.direction = { x: 0, y: 0 };

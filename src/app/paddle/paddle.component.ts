@@ -13,7 +13,7 @@ export class PaddleComponent {
     this.reset();
   }
 
-  get position() {
+  get position(): number {
     return parseFloat(
       getComputedStyle(this.paddleElem).getPropertyValue('--position')
     );
@@ -23,15 +23,15 @@ export class PaddleComponent {
     this.paddleElem?.style.setProperty('--position', value);
   }
 
-  rect() {
+  public rect() {
     return this.paddleElem.getBoundingClientRect();
   }
 
-  reset() {
+  public reset(): void {
     this.position = 50;
   }
 
-  update(delta: number, ballHeight:number) {
+  public update(delta: number, ballHeight:number): void {
     this.position += this.SPEED * delta * (ballHeight - this.position);
   }
 }
