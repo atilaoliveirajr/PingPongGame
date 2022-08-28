@@ -1,4 +1,11 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+} from '@angular/core';
 import { BallComponent } from '../ball/ball.component';
 import { PaddleComponent } from '../paddle/paddle.component';
 
@@ -7,10 +14,19 @@ import { PaddleComponent } from '../paddle/paddle.component';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit {
+  @ViewChild('ball')
+  public ballRef: ElementRef;
   public ball: BallComponent;
+
+  @ViewChild('leftPlayer')
+  public leftPlayerRef: ElementRef;
   public leftPlayer: PaddleComponent;
+
+  @ViewChild('rightPlayer')
+  public rightPlayerRef: ElementRef;
   public rightPlayer: PaddleComponent;
+
   public lastTime: number;
   public leftPlayerScoreElem: HTMLElement;
   public rightPlayerScoreElem: HTMLElement;
@@ -20,6 +36,16 @@ export class TableComponent implements OnInit {
 
   constructor() {
     this.lastTime = 0;
+  }
+
+  ngAfterViewInit(): void {
+    this.ball = new BallComponent(this.ballRef.nativeElement as HTMLElement);
+    this.leftPlayer = new PaddleComponent(
+      this.leftPlayerRef.nativeElement as HTMLElement
+    );
+	this.rightPlayer = new PaddleComponent(this.rightPlayerRef.nativeElement as HTMLElement)
+
+    this.update(0);
   }
 
   /* @HostListener('document:mousemove', ['$event'])
@@ -55,18 +81,8 @@ export class TableComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.ball = new BallComponent(
-      document.getElementById('ball') as HTMLElement
-    );
-    this.leftPlayer = new PaddleComponent(
-      document.getElementById('pladdle-left')
-    );
-    this.rightPlayer = new PaddleComponent(
-      document.getElementById('paddle-right')
-    );
     this.leftPlayerScoreElem = document.getElementById('left-player-score');
     this.rightPlayerScoreElem = document.getElementById('right-player-score');
-    this.update(0);
   }
 
   public update(time: number) {
@@ -86,7 +102,7 @@ export class TableComponent implements OnInit {
 
     this.lastTime = time as number;
     /* Player Btn */
-    window.requestAnimationFrame(this.update.bind(this));
+    //window.requestAnimationFrame(this.update.bind(this));
   }
 
   public isLose() {

@@ -20,7 +20,7 @@ export class PaddleComponent {
   }
 
   set position(value) {
-    this.paddleElem.style.setProperty('--position', value);
+    this.paddleElem?.style.setProperty('--position', value);
   }
 
   rect() {
