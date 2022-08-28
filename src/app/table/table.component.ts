@@ -10,19 +10,18 @@ export class TableComponent implements OnInit {
   public lastTime: number;
 
   constructor(@Inject(BallService) public ball: IBallService) {
-	this.lastTime = 0;
+    this.lastTime = 0;
   }
 
   ngOnInit(): void {
-	this.update();
+    this.update();
   }
 
   public update(time?: number) {
-	if (this.lastTime !== null) {
-		const delta = time as number - this.lastTime;
-		
-	  }
+    if (this.lastTime !== null) {
+      const delta = (time as number) - this.lastTime;
+    }
 
-	this.lastTime = time as number;
+    this.lastTime = time as number;
   }
 }
